@@ -1,8 +1,12 @@
 <template>
     <div>
-        <h1>to do</h1>
-        <input type="checkbox" id="todo-item"/>
-        <label for="todo-item">{{label}}</label>
+        <input 
+            type="checkbox" 
+            :id="id" 
+            :checked="isDone" />
+        <label 
+            :for="id">{{ label }}
+        </label>
     </div>
 </template>
 
@@ -11,7 +15,13 @@
 export default {
     props: {
         label: { required: true, type: String },
-        done: { default: true, type: Boolean }
+        done: { default: true, type: Boolean },
+        id: { required: true, type:String }
+    },
+    data() {
+        return {
+            isDone: this.done,
+        }
     }
 }
 </script>
