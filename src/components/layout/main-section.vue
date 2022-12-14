@@ -7,13 +7,14 @@
         </nav>
 
         <div class="projectItems">
-            <ToDoForm @todo-added="addToDo"></ToDoForm>
+            <h2>Inbox</h2>
             <ul>
                 <li v-for="item in ToDoItems" :key="item.id">
                     <ToDoItemVue :label="item.label" :done="item.done" :id="item.id">
                     </ToDoItemVue>
                 </li>
             </ul>
+            <ToDoForm @todo-added="addToDo"></ToDoForm>
         </div>
     </div>
 </template>

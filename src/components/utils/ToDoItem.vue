@@ -1,5 +1,4 @@
 <template>
-    <div>
         <input 
             type="checkbox" 
             :id="id" 
@@ -7,7 +6,6 @@
         <label 
             :for="id">{{ label }}
         </label>
-    </div>
 </template>
 
 <script>

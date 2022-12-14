@@ -114,7 +114,72 @@ footer {
     color: white;
     gap: 0.5rem;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .projectItems {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
     margin: 0 auto;
-    padding: 3rem;
+    padding: 6rem;
+    padding-top: 3rem;
+}
+
+.projectItems>ul>li {
+    padding: 1rem;
+}
+
+.projectItems>ul>li:hover {
+    background-color: #EAEAEA;
+    border-radius: 0.4rem;
+}
+
+.projectItems>ul>li>input {
+    margin-right: 1rem;
+}
+
+.addTaskBtn {
+    background-color: #EAEAEA;
+    outline: 1px solid #B2B2B2;
+    padding: 0.7rem;
+    border-radius: 0.4rem;
+}
+
+#new-todo-input {
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    border-style: solid;
+    outline: 1px solid #B2B2B2;
+}
+
+.addTaskBtn:hover {
+    filter: brightness(90%);
+}
+
+.btnDiv {
+    display: flex;
+    gap: 1rem;
+}
+
+.addBtn,
+.cancelBtn {
+    padding: 0.6rem;
+    border-radius: 0.4rem;
+    width: 100%;
+    outline: 1px solid #B2B2B2;
+    cursor: pointer;
+}
+
+.addBtn {
+    background-color: #59CE8F;
+}
+
+.cancelBtn {
+    background-color: #FF8B8B;
 }
