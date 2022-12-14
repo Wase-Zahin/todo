@@ -1,34 +1,20 @@
 <template>
-  <h1>to do</h1>
-  <ToDoForm></ToDoForm>
-  <ul>
-    <li v-for="item in ToDoItems" :key="item.id">
-      <ToDoItemVue 
-      :label="item.label" 
-      :done="item.done"
-      :id="item.id">
-    </ToDoItemVue>
-    </li>
-  </ul>
+  <Header></Header>
+  <Main></Main>
+  <Footer></Footer>
 </template>
 
 <script>
-import ToDoForm from './components/ToDoForm';
-import ToDoItemVue from './components/ToDoItem.vue';
-import uniqueId from 'lodash.uniqueid'
+import Header from './components/layout/header-section.vue'
+import Main from './components/layout/main-section.vue'
+import Footer from './components/layout/footer-section.vue'
 
 export default {
   name: 'App',
   components: {
-    ToDoItemVue,
-    ToDoForm
-  },
-  data() {
-    return {
-      ToDoItems: [
-        { id: uniqueId('todo-'), label: '', done: false }
-      ]
-    }
+    Header,
+    Main,
+    Footer
   }
 }
 </script>
@@ -38,8 +24,5 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
