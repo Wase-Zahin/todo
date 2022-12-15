@@ -62,46 +62,84 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-@media screen and (min-width: 620px) {
+/* when width is more than 620px */
+@media screen and (min-width: 620px) { 
     body {
         font-size: 1.9rem;
         line-height: 1.31579;
     }
+
+    header>img {
+        display: none;
+    }
+
+    main {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        max-width: 960px;      
+    }
+
+    nav {
+        width: 300px;
+        min-height: 100vh;
+        min-width: 250px;
+    }
 }
 
+@media screen and (max-width: 620px) {
+    nav {
+        width: 100vw;
+    }
+}
 /*END RESETS*/
 
 header {
+    display: flex;
+    justify-content: space-between;
     color: white;
     background-color: #222222;
     padding: 1.6rem;
     font-size: 3rem;
+    box-shadow: 1px 1px 1px #2B3A55;
 }
 
-.main {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    max-width: 960px;
-    height: 100%;
+header>img {
+    cursor: pointer;
+}
+
+main {
+    min-height: calc(100vh - 104px - 48px);
 }
 
 nav {
-    width: 300px;
-    min-height: 100vh;
-    min-width: 250px;
     background-color: #FFEBAD;
     padding: 2rem;
+    box-shadow: 1px 1px #c7c490;
+    border-top: 1px solid #000000;
+    margin-bottom: 1px;
 }
 
 nav>button {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 0.5rem;
+    width: 100%;
     cursor: pointer;
-    display: block;
     padding: 1rem;
+    padding-left: 2.5rem;
+    border-radius: 0.2rem;
+}
+
+nav>button:hover {
+    background-color: #ffe499;
+    outline: 1px solid #000000;
 }
 
 nav>h3 {
     padding: 1rem;
+    padding-left: 3rem;
 }
 
 footer {
@@ -132,7 +170,9 @@ form {
 }
 
 .projectItems>ul>li {
-    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
 }
 
 .projectItems>ul>li:hover {
@@ -140,15 +180,17 @@ form {
     border-radius: 0.4rem;
 }
 
-.projectItems>ul>li>input {
-    margin-right: 1rem;
+.projectItems>ul>li>div>* {
+    cursor: pointer;
+    margin: 0 0.5rem;
 }
 
 .addTaskBtn {
+    cursor: pointer;
     background-color: #EAEAEA;
     outline: 1px solid #B2B2B2;
     padding: 0.7rem;
-    border-radius: 0.4rem;
+    border-radius: 0.2rem;
 }
 
 #new-todo-input {

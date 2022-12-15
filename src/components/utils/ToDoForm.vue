@@ -19,7 +19,6 @@ export default {
       btnDisplay: false,
     }
   },
-
   methods: {
     onSubmit() {
       if (this.label === '') return;

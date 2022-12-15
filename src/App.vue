@@ -1,6 +1,6 @@
 <template>
-  <Header></Header>
-  <Main></Main>
+  <Header @toggle-menu="toggleMenu = !toggleMenu"></Header>
+  <Main :menuClicked="toggleMenu"></Main>
   <Footer></Footer>
 </template>
 
@@ -15,6 +15,12 @@ export default {
     Header,
     Main,
     Footer
+  },
+
+  data() {
+    return {
+      toggleMenu: false
+    }
   }
 }
 </script>
