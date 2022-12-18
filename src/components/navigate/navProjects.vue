@@ -24,11 +24,6 @@ export default {
         ProjectItem,
         ProjectForm,
     },
-    props: {
-        menuClicked: {
-            type: Boolean
-        }
-    },
     data() {
         return {
             projectItems: [

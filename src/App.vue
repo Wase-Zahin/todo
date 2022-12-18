@@ -1,6 +1,6 @@
 <template>
   <Header @toggle-menu="toggleMenu = !toggleMenu"></Header>
-  <Main :menuClicked="toggleMenu"></Main>
+  <Main :showMenu="toggleMenu"></Main>
   <Footer></Footer>
 </template>
 
