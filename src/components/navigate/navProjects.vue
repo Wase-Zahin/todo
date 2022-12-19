@@ -1,15 +1,17 @@
+have to pass the projects array to main-section
+have to pass the showProjects methos from main-section to here.
+
 <template>
     <div class="projectItems">
-    <h3>Projects</h3>
+        <h3>Projects</h3>
         <ul>
-            <li v-for="item in projectItems" :key="item.id">
+            <li @click="showProject" v-for="item in projects" :key="item.id">
                 <ProjectItem @project-deleted="deleteProject" :label="item.label" :id="item.id">
                 </ProjectItem>
             </li>
         </ul>
         <ProjectForm @project-added="addProject"></ProjectForm>
     </div>
-
 </template>
   
 <script>
@@ -24,23 +26,30 @@ export default {
         ProjectItem,
         ProjectForm,
     },
+    props: {
+        
+    },
     data() {
         return {
-            projectItems: [
+            toggleProjects: false,
+            projects: [
                 { id: uniqueId('project-'), label: 'This is a project' }
             ]
         }
     },
     methods: {
         addProject(labelData) {
-            this.projectItems.push({ id: uniqueId('todo-'), label: labelData });
+            this.projects.push({ id: uniqueId('todo-'), label: labelData });
         },
         deleteProject(id) {
-            for (let i = 0; i < this.projectItems.length; i++) {
-                if (this.projectItems[i].id === id) {
-                    this.projectItems.splice(i, 1);
+            for (let i = 0; i < this.projects.length; i++) {
+                if (this.projects[i].id === id) {
+                    this.projects.splice(i, 1);
                 }
             }
+        },
+        showProject() {
+            this.$emit('show-projects', this.projects, this.toggleProjects);
         }
     }
 }

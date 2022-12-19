@@ -26,9 +26,6 @@ export default {
             this.label = "";
             this.formDisplay = false;
         },
-        addComponent() {
-            this.formDisplay = true;
-        }
     }
 }
 

@@ -3,9 +3,11 @@
         <!-- this is the navigation bar -->
         <nav v-if="showMenu">
             <button @click="showInbox" ><img src="../images/email-check.png" alt="inbox" /> Inbox</button>
-            <button @click="showProjects"><img src="../images/star-outline.png" alt="bookmark" />Bookmarks</button>
-            <!-- navigation for projects -->
-            <navProjects></navProjects>
+            <button @click="handler">
+                <img src="../images/star-outline.png" alt="bookmark" />Bookmarks
+            </button>
+            <!-- navigation for projectItems -->
+            <navProjects @show-projects="handler"></navProjects>
         </nav>
 
         <!-- todo items to show in the main section of the page -->
@@ -23,12 +25,12 @@
         <div v-if="this.toggleProjects" class="toDoItems">
             <h2>Projects</h2>
             <ul>
-                <li v-for="item in projects" :key="item.id">
+                <li v-for="item in this.projectArr" :key="item.id">
                     <ToDoItemVue @todo-deleted="deleteProjectItems" :label="item.label" :id="item.id">
                     </ToDoItemVue>
                 </li>
             </ul>
-            <ToDoForm @todo-added="addProjects"></ToDoForm>
+            <ToDoForm @todo-added="addProjectItems"></ToDoForm>
         </div>
     </main>
 </template>
@@ -53,16 +55,21 @@ export default {
     props: {
         showMenu: {
             type: Boolean
-        }
+        },
+        // passed projects array from child component navProjects
+        projects: {
+            type: Array
+        },
     },
     data() {
         return {
-            toggleInbox: true,
+            projectArr: [],
             toggleProjects: false,
+            toggleInbox: true,
             inboxItems: [
                 { id: uniqueId('todo-'), label: '', done: false }
             ],
-            projects: [
+            projectItems: [
                 { id: uniqueId('project-'), label: '' }
             ]
         }
@@ -71,8 +78,8 @@ export default {
         addInboxItems(labelData) {
             this.inboxItems.push({ id: uniqueId('todo-'), label: labelData, done: false });
         },
-        addProjects(labelData) {
-            this.projects.push({ id: uniqueId('todo-'), label: labelData, done: false });
+        addProjectItems(labelData) {
+            this.projectItems.push({ id: uniqueId('todo-'), label: labelData, done: false });
         },
 
         deleteInboxItems(id) {
@@ -84,9 +91,9 @@ export default {
             }
         },
         deleteProjectItems(id) {
-            for (let i = 0; i < this.projects.length; i++) {
-                if (this.projects[i].id === id) {
-                    this.projects.splice(i, 1);
+            for (let i = 0; i < this.projectItems.length; i++) {
+                if (this.projectItems[i].id === id) {
+                    this.projectItems.splice(i, 1);
                     return;
                 }
             }
@@ -95,9 +102,11 @@ export default {
             this.toggleInbox = true;
             this.toggleProjects = false;
         },
-        showProjects() {
+        handler(projects, toggleProjects) {
+            toggleProjects = true;
             this.toggleInbox = false;
-            this.toggleProjects = true;
+            this.toggleProjects = toggleProjects;
+            this.projectArr = projects;
         }
     }
 }
