@@ -129,7 +129,7 @@ nav>button {
     width: 100%;
     cursor: pointer;
     padding: 1rem;
-    padding-left: 2.5rem;
+    padding-left: 2rem;
     border-radius: 0.2rem;
 }
 
@@ -206,6 +206,10 @@ form {
     outline: 1px solid #000000;
 }
 
+.projectItems>ul>li>div {
+    display: flex;
+    align-items: center;
+}
 .toDoItems>ul>li>div>*,
 .projectItems>ul>li>div>* {
     cursor: pointer;

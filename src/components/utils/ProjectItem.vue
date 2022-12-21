@@ -1,5 +1,6 @@
 <template>
     <div>
+        <img src="../images/todo.png" alt="star"/>
         <label :for="id">{{ label }}
         </label>
     </div>

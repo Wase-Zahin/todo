@@ -11,26 +11,32 @@
         </nav>
 
         <!-- todo items to show in the main section of the page -->
-        <div v-if="this.toggleInbox" class="toDoItems">
+        <div v-if="toggleInbox" class="toDoItems">
             <h2>Inbox</h2>
             <ul>
-                <li v-for="item in inboxItems" :key="item.id">
-                    <ToDoItemVue @todo-deleted="deleteInboxItems" :label="item.label" :id="item.id">
-                    </ToDoItemVue>
+                <li v-for="item in inboxToDo" :key="item.id">
+                    <ToDoItem
+                    @todo-deleted="deleteInboxItems" 
+                    :label="item.label" 
+                    :id="item.id">
+                    </ToDoItem>
                 </li>
             </ul>
-            <ToDoForm @todo-added="addInboxItems"></ToDoForm>
+            <ToDoForm @todo-added="addInboxTodo"></ToDoForm>
         </div>
 
-        <div v-if="this.toggleProjects" class="toDoItems">
-            <h2>Projects</h2>
+        <div v-if="showProject" class="toDoItems">
+            <h2>{{this.currentProjectName}}</h2>
             <ul>
-                <li v-for="item in this.projectArr" :key="item.id">
-                    <ToDoItemVue @todo-deleted="deleteProjectItems" :label="item.label" :id="item.id">
-                    </ToDoItemVue>
+                <li v-for="todo in projectOnFocus" :key="todo.id">
+                    <ToDoItem
+                    @todo-deleted="deleteProjectToDo" 
+                    :label="todo.label" 
+                    :id="todo.id">
+                    </ToDoItem>
                 </li>
             </ul>
-            <ToDoForm @todo-added="addProjectItems"></ToDoForm>
+            <ToDoForm @todo-added="addProjectToDo"></ToDoForm>
         </div>
     </main>
 </template>
@@ -40,7 +46,7 @@
 // arrays and methods for the todo items for each project, inbox or
 // bookmark items are defined here
 import ToDoForm from "../utils/ToDoForm.vue"
-import ToDoItemVue from '../utils/ToDoItem.vue';
+import ToDoItem from '../utils/ToDoItem.vue';
 import navProjects from '../navigate/navProjects.vue';
 // import navBookmarks from '../navigate/navBookmarks.vue';
 import uniqueId from 'lodash.uniqueid'
@@ -48,7 +54,7 @@ import uniqueId from 'lodash.uniqueid'
 export default {
     name: 'main-section',
     components: {
-        ToDoItemVue,
+        ToDoItem,
         ToDoForm,
         navProjects
     },
@@ -56,57 +62,56 @@ export default {
         showMenu: {
             type: Boolean
         },
-        // passed projects array from child component navProjects
-        projects: {
-            type: Array
-        },
     },
     data() {
         return {
-            projectArr: [],
-            toggleProjects: false,
+            inboxToDo: [],
+            projects: [],
+            projectOnFocus: [],
+            currentProjectName: '',
+            showProject: false,
             toggleInbox: true,
-            inboxItems: [
-                { id: uniqueId('todo-'), label: '', done: false }
-            ],
-            projectItems: [
-                { id: uniqueId('project-'), label: '' }
-            ]
         }
     },
     methods: {
-        addInboxItems(labelData) {
-            this.inboxItems.push({ id: uniqueId('todo-'), label: labelData, done: false });
+        addInboxTodo(labelData) {
+            this.inboxToDo.push({ id: uniqueId('todo-'), label: labelData, done: false });
         },
-        addProjectItems(labelData) {
-            this.projectItems.push({ id: uniqueId('todo-'), label: labelData, done: false });
+        addProjectToDo(labelData) {
+            for (let i = 0; i < this.projects.length; i++) {
+                if (this.projects[i].label === this.currentProjectName) {
+                    this.projects[i].projectToDo.push(
+                        { id: uniqueId('todo-'), label: labelData, done: false });
+                }
+            }
         },
-
         deleteInboxItems(id) {
-            for (let i = 0; i < this.inboxItems.length; i++) {
-                if (this.inboxItems[i].id === id) {
-                    this.inboxItems.splice(i, 1);
+            for (let i = 0; i < this.inboxToDo.length; i++) {
+                if (this.inboxToDo[i].id === id) {
+                    this.inboxToDo.splice(i, 1);
                     return;
                 }
             }
         },
-        deleteProjectItems(id) {
-            for (let i = 0; i < this.projectItems.length; i++) {
-                if (this.projectItems[i].id === id) {
-                    this.projectItems.splice(i, 1);
-                    return;
+        deleteProjectToDo(id) {
+            for (let i in this.projectOnFocus) {
+                if (this.projectOnFocus[i].id === id) {
+                    this.projectOnFocus.splice(i, 1);
+                    console.log(this.projects);
                 }
             }
         },
         showInbox() {
             this.toggleInbox = true;
-            this.toggleProjects = false;
+            this.showProject = false;
         },
-        handler(projects, toggleProjects) {
-            toggleProjects = true;
+        handler(projects, showProject, projectOnFocus, currentProjectName) {
             this.toggleInbox = false;
-            this.toggleProjects = toggleProjects;
-            this.projectArr = projects;
+            // extract data from child component 'navProjects'
+            this.projectOnFocus = projectOnFocus
+            this.showProject = showProject;
+            this.projects = projects;
+            this.currentProjectName = currentProjectName;
         }
     }
 }

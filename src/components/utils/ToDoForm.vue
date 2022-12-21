@@ -7,7 +7,7 @@
       <button class="cancelBtn" type="button" @click="formDisplay = false">Cancel</button>
     </div>
   </form>
-  <button v-else class="addTaskBtn" type="button" @click="formDisplay = true">Add Task +</button>
+  <button v-else class="addTaskBtn" type="button" @click="formDisplay = true">+ Add Task</button>
 </template>
 
 <script>

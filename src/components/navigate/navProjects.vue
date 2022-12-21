@@ -1,6 +1,3 @@
-have to pass the projects array to main-section
-have to pass the showProjects methos from main-section to here.
-
 <template>
     <div class="projectItems">
         <h3>Projects</h3>
@@ -26,30 +23,38 @@ export default {
         ProjectItem,
         ProjectForm,
     },
-    props: {
-        
-    },
     data() {
         return {
-            toggleProjects: false,
-            projects: [
-                { id: uniqueId('project-'), label: 'This is a project' }
-            ]
+            projects: [],
+            toggleProject: false,
+            currentProjectName: '',
+            currentId: '',
+            projectOnFocus: '',
         }
     },
     methods: {
         addProject(labelData) {
-            this.projects.push({ id: uniqueId('todo-'), label: labelData });
+            this.projects.push({ id: uniqueId('project-'), label: labelData, projectToDo: [] });
         },
         deleteProject(id) {
             for (let i = 0; i < this.projects.length; i++) {
                 if (this.projects[i].id === id) {
                     this.projects.splice(i, 1);
+                    // reset
+                    this.projectOnFocus = '';
+                    this.currentProjectName = '';
                 }
             }
         },
-        showProject() {
-            this.$emit('show-projects', this.projects, this.toggleProjects);
+        showProject(e) {
+            this.toggleProject = true;
+            for (let i = 0; i < this.projects.length; i++) {
+                if (this.projects[i].label === e.target.textContent) {
+                    // extract todo array of 'projects' to pass to parent
+                    this.projectOnFocus = this.projects[i].projectToDo;
+                }
+            }
+            this.$emit('show-projects', this.projects, this.toggleProject, this.projectOnFocus, e.target.textContent);
         }
     }
 }
