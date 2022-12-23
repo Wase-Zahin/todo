@@ -124,13 +124,19 @@ nav {
 nav>button {
     display: flex;
     align-items: center;
-    text-align: left;
     gap: 0.5rem;
     width: 100%;
     cursor: pointer;
     padding: 1rem;
     padding-left: 2rem;
     border-radius: 0.2rem;
+}
+
+nav>input {
+    display: flex;
+    height: 1px;
+    width: 1px;
+    
 }
 
 nav>button:hover {
@@ -260,4 +266,57 @@ form {
 
 .cancelBtn {
     background-color: #FF8B8B;
+}
+
+.bookmark {
+    appearance: none;
+    height: 2px;
+    width: 2px;
+    border-right: 21px solid rgb(66, 66, 66);
+    border-bottom: 30px solid transparent;
+    left:20px;
+    margin-right: 2px;
+}
+
+.bookmark:before {
+    display: block;
+    content: "";
+    border-left: 21px solid rgb(66, 66, 66);
+    border-bottom: 30px solid transparent;
+}
+
+.todoBookmark {
+    appearance: none;
+    height: 2px;
+    width: 2px;
+    border-right: 15px solid rgb(66, 66, 66);
+    border-bottom: 21px solid transparent;
+    margin-right: 2px;
+    border-radius: 2px;
+}
+
+.todoBookmark:before {
+    display: block;
+    border-radius: 2px;
+    content: "";
+    border-left: 15px solid rgb(66, 66, 66);
+    border-bottom: 21px solid transparent;
+}
+.todoBookmark:checked {
+    border-right-color: #E64848;
+    border-radius: 2px;
+    animation: scale 0.4s;
+    transition: 0.1s 0.3s border;
+}
+
+@keyframes scale {
+    80% {
+        transform: scale(0.8);
+    }
+    
+}
+.todoBookmark:checked:before{
+    border-left-color: #E64848;
+    border-radius: 2px;
+    transition: 0.1s 0.3s border;
 }

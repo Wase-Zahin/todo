@@ -1,6 +1,6 @@
 <template>
   <Header @toggle-menu="toggleMenu = !toggleMenu"></Header>
-  <Main :showMenu="toggleMenu"></Main>
+  <Main :computer-screen="computerScreen" :showMenu="toggleMenu"></Main>
   <Footer></Footer>
 </template>
 
@@ -19,7 +19,22 @@ export default {
 
   data() {
     return {
-      toggleMenu: false
+      toggleMenu: false,
+      computerScreen: true,
+    }
+  },
+  created() {
+    window.addEventListener("resize", this.resizeFn);
+  },
+  unmounted() {
+    window.removeEventListener("resize", this.resizeFn);
+  },
+  methods: {
+    resizeFn() {
+      if (window.screen.width >= 620) {
+        this.computerScreen = true; 
+        this.toggleMenu = false;
+      } else this.computerScreen = false;
     }
   }
 }
