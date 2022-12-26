@@ -287,8 +287,8 @@ form {
 
 .todoBookmark {
     appearance: none;
-    height: 2px;
-    width: 2px;
+    height: 1px;
+    width: 1px;
     border-right: 15px solid rgb(66, 66, 66);
     border-bottom: 21px solid transparent;
     margin-right: 2px;

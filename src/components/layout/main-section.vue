@@ -2,7 +2,7 @@
     <main>
         <!-- this is the navigation bar -->
         <nav v-if="computerScreen">
-            <button @click="showInboxFn" ><img src="../images/email-check.png" alt="inbox" /> Inbox</button>
+            <button @click="showInboxFn"><img src="../images/email-check.png" alt="inbox" /> Inbox</button>
             <button @click="showBookmarkFn">
                 <img src="../images/bookmark.png" alt="bookmark"> Bookmarks
             </button>
@@ -11,7 +11,9 @@
         </nav>
 
         <nav v-if="showMenu">
-            <button @click="showInboxFn" ><img src="../images/email-check.png" alt="inbox" /> Inbox</button>
+            <button @click="showInboxFn" >
+                <img src="../images/email-check.png" alt="inbox" /> Inbox
+            </button>
             <button @click="showBookmarkFn">
                 <img src="../images/bookmark.png" alt="bookmark" />Bookmarks
             </button>
@@ -20,22 +22,22 @@
         </nav>
 
         <!-- todo items to show in the main section of the page -->
+
         <div v-if="showInbox" class="toDoItems">
             <h2 @click="checkBookmarks">Inbox</h2>
             <ul>
                 <li v-for="item in inboxToDo" :key="item.id">
-                    <keep-alive>
                     <ToDoItem
                     @todo-deleted="deleteInboxItems" 
                     @update-array="updateInboxArr"
                     :label="item.label"
                     :id="item.id">
                     </ToDoItem>
-                    </keep-alive>
                 </li>
             </ul>
             <ToDoForm @todo-added="addInboxTodo"></ToDoForm>
         </div>
+
 
         <div v-if="showBookmark" class="toDoItems">
             <h2 @click="checkBookmarks">Bookmarks</h2>
@@ -148,20 +150,26 @@ export default {
                 if (this.inboxToDo[i].bookmarked === true) {
                     this.Bookmarks.push(this.inboxToDo[i]);
                 }
-                console.log(this.inboxToDo[i].bookmarked)
             }
+            console.log(this.inboxToDo);
         },
         handler(projects, showProject, projectOnFocus, currentProjectName) {
             this.showInbox = false;
+            this.showBookmark = false;
             // extract data from child component 'navProjects'
             this.projectOnFocus = projectOnFocus
             this.showProject = showProject;
             this.projects = projects;
             this.currentProjectName = currentProjectName;
         },
-        updateInboxArr() {
-            this.bookmarked = true;
-            console.log(this.bookmarked)
+        updateInboxArr(id) {
+            for (let i in this.inboxToDo) {
+                if (this.inboxToDo[i].id === id) {
+                    if (this.inboxToDo[i].bookmarked === false) this.inboxToDo[i].bookmarked = true
+                    else this.inboxToDo[i].bookmarked = false;
+                }    
+            }
+            console.log(id)
         }
     }
 }

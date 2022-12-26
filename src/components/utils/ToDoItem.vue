@@ -30,7 +30,7 @@ export default {
             this.$emit("todo-deleted", this.id);
         },
         console() {
-            this.$emit("update-array", this.bookmarked)
+            this.$emit("update-array", this.id)
         }
     }
 }
