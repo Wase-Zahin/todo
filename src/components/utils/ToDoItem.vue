@@ -5,7 +5,6 @@
         </label>
     </div>
     <div>
-        <input @click="console" class="todoBookmark" type="checkbox" :checked="isBookmarked">
         <img @click="onDelete" src="../images/delete.png" alt="delete" />
     </div>
 </template>
@@ -17,12 +16,10 @@ export default {
         label: { required: true, type: String },
         done: { default: true, type: Boolean },
         id: { required: true, type: String },
-        bookmarked: { default: false, type: Boolean}
     },
     data() {
         return {
             isDone: this.done,
-            isBookmarked: this.bookmarked
         }
     },
     methods: {

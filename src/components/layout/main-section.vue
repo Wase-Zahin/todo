@@ -50,7 +50,7 @@
                     </ToDoItem>
                 </li>
             </ul>
-            <ToDoForm @todo-added="addInboxTodo"></ToDoForm>
+            <ToDoForm @todo-added="addBookmarksTodo"></ToDoForm>
         </div>
 
         <div v-if="showProject" class="toDoItems">
@@ -109,7 +109,10 @@ export default {
     },
     methods: {
         addInboxTodo(labelData) {
-            this.inboxToDo.push({ id: uniqueId('todo-'), label: labelData, done: false, bookmarked: false });
+            this.inboxToDo.push({ id: uniqueId('todo-'), label: labelData, done: false });
+        },
+        addBookmarksTodo(labelData) {
+            this.Bookmarks.push({ id: uniqueId('todo-'), label: labelData, done: false });
         },
         addProjectToDo(labelData) {
             for (let i = 0; i < this.projects.length; i++) {
@@ -123,6 +126,14 @@ export default {
             for (let i = 0; i < this.inboxToDo.length; i++) {
                 if (this.inboxToDo[i].id === id) {
                     this.inboxToDo.splice(i, 1);
+                    return;
+                }
+            }
+        },
+        deleteBookmarkItems(id) {
+            for (let i = 0; i < this.Bookmarks.length; i++) {
+                if (this.Bookmarks[i].id === id) {
+                    this.Bookmarks.splice(i, 1);
                     return;
                 }
             }
@@ -145,14 +156,7 @@ export default {
             this.showProject = false;
             this.showInbox = false;
         },
-        checkBookmarks() {
-            for (let i in this.inboxToDo) {
-                if (this.inboxToDo[i].bookmarked === true) {
-                    this.Bookmarks.push(this.inboxToDo[i]);
-                }
-            }
-            console.log(this.inboxToDo);
-        },
+
         handler(projects, showProject, projectOnFocus, currentProjectName) {
             this.showInbox = false;
             this.showBookmark = false;
@@ -162,15 +166,6 @@ export default {
             this.projects = projects;
             this.currentProjectName = currentProjectName;
         },
-        updateInboxArr(id) {
-            for (let i in this.inboxToDo) {
-                if (this.inboxToDo[i].id === id) {
-                    if (this.inboxToDo[i].bookmarked === false) this.inboxToDo[i].bookmarked = true
-                    else this.inboxToDo[i].bookmarked = false;
-                }    
-            }
-            console.log(id)
-        }
     }
 }
 
